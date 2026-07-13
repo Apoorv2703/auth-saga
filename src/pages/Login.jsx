@@ -1,15 +1,19 @@
 
 import Loader from '../components/Loader'
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
+
 function Login() {
 
-    let { user, isLoading , isError } = useSelector(state => state.auth)
+    let { user, isLoading, isError } = useSelector(state => state.auth)
     let navigate = useNavigate()
+    let dispatch = useDispatch()
+
+    let [formData, setFormData] = useState()
 
     useEffect(() => {
 
@@ -25,10 +29,21 @@ function Login() {
         )
     }
 
-    if(isError){
+    if (isError) {
         return (
             <h1>Something Went wrong</h1>
         )
+    }
+
+    let handleSubmit = (e) => {
+        e.preventDefault()
+        setFormData(
+            dispatch({
+                type: "AUTH/LOGIN_REQUEST",
+                payload: formData,
+            })
+        )
+
     }
 
 
@@ -46,7 +61,7 @@ function Login() {
                     </div>
 
                     {/* Login Form */}
-                    <form className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Email Address
