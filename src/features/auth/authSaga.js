@@ -1,8 +1,18 @@
-import { takeLatest } from "redux-saga/effects";
+import axios from "axios";
+import { call, takeLatest } from "redux-saga/effects";
 
+
+
+
+let loginAPI = (formData)=>{
+    return axios.post('/api/auth/login',formData)
+}
 export function* loginWorker(action){
-    console.log('login worker running');
-    console.log(action.payload);   
+    console.log('worker started');
+    
+    let response = yield call(loginAPI , action.payload)
+    console.log(response);
+      
 
 }
 
@@ -14,3 +24,4 @@ export function* watchLogin(){
 export default function* authSaga(){
     yield watchLogin()
 }
+
