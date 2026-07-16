@@ -9,47 +9,7 @@ import { toast } from 'react-toastify';
 
 function Login() {
 
-    let { user, isLoading, isError } = useSelector(state => state.auth)
-    let navigate = useNavigate()
-    let dispatch = useDispatch()
-
-    let [formData, setFormData] = useState()
-
-    useEffect(() => {
-
-        if (user) {
-            navigate("/")
-        }
-
-    }, [user])
-
-    if (isLoading) {
-        return (
-            <Loader />
-        )
-    }
-
-    if (isError) {
-        return (
-            <h1>Something Went wrong</h1>
-        )
-    }
-
-    let handleSubmit = (e) => {
-        e.preventDefault()
-        setFormData(
-            dispatch({
-                type: "AUTH/LOGIN_REQUEST",
-                payload: formData,
-            })
-        )
-
-    }
-
-
-
-
-
+    
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
             <div className="max-w-md w-full">
@@ -61,7 +21,7 @@ function Login() {
                     </div>
 
                     {/* Login Form */}
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form className="space-y-6">
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Email Address
