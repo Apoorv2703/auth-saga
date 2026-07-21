@@ -9,7 +9,41 @@ import { toast } from 'react-toastify';
 
 function Login() {
 
-    
+    let dispatch = useDispatch()
+    let navigate = useNavigate()
+
+    let { user, loading, error } = useSelector((state) => state.auth)
+
+    let [formData, setFormdata] = useState({
+        email: "",
+        password: "",
+    })
+
+    let handleChange = (e) => {
+        setFormdata({ ...formData, [e.target.name]: e.target.value })
+
+    }
+
+    let handleSubmit = (e) => {
+        e.preventDefault()
+
+    }
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+
+    }, [user, navigate])
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error)
+        }
+
+    }, [error])
+
+
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
             <div className="max-w-md w-full">
