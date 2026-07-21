@@ -1,11 +1,12 @@
 
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 function Register() {
     let { user } = useSelector(state => state.auth)
+    let dispatch = useDispatch()
     let navigate = useNavigate()
 
     useEffect(() => {

@@ -21,12 +21,24 @@ let authSlice = createSlice({
         registerFailure : (state , action)=>{
             state.loading = false ,
             state.error = action.payload
+        },
+        loginrequest : (state)=>{
+            state.loading = true ,
+            state.error = null
+        },
+        loginSuccess : (state , action)=>{
+            state.loading = false ,
+            state.user = action.payload
+        },
+        loginFailure : (state , action)=>{
+            state.loading = false ,
+            state.error = action.payload
         }
 
     }
     
 })
 
-export let {registerRequest , registerSuccess , registerFailure} = authSlice.actions
+export let {registerRequest , registerSuccess , registerFailure , loginrequest , loginSuccess , loginFailure} = authSlice.actions
 
 export default authSlice.reducer
