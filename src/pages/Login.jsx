@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { loginRequest } from '../features/auth/authSlice';
 
 
 
@@ -19,6 +20,8 @@ function Login() {
         password: "",
     })
 
+    let { email, password } = formData
+
     let handleChange = (e) => {
         setFormdata({ ...formData, [e.target.name]: e.target.value })
 
@@ -26,6 +29,7 @@ function Login() {
 
     let handleSubmit = (e) => {
         e.preventDefault()
+        dispatch(loginRequest(formData))
 
     }
 
@@ -43,6 +47,12 @@ function Login() {
 
     }, [error])
 
+    if(loading){
+        return (
+            <h1 className='text-center font-bold text-2xl text-red-400'>Loading...</h1>
+        )
+    }
+
 
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
@@ -55,13 +65,16 @@ function Login() {
                     </div>
 
                     {/* Login Form */}
-                    <form className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Email Address
                             </label>
                             <input
                                 type="email"
+                                name='email'
+                                value={email}
+                                onChange={handleChange}
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-400 focus:outline-none transition-all duration-200 hover:border-gray-300"
                                 placeholder="Enter your email"
                             />
@@ -72,7 +85,10 @@ function Login() {
                                 Password
                             </label>
                             <input
+                                name='password'
                                 type="password"
+                                value={password}
+                                onChange={handleChange}
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-400 focus:outline-none transition-all duration-200 hover:border-gray-300"
                                 placeholder="Enter your password"
                             />
